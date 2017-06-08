@@ -6,39 +6,62 @@
 // A key that specifies which character to use to build the pine tree.
 // The character to use should be from user input in a
 // <input type="text"> field in the DOM.
-
-
-
-
-
 const buttonStart = document.getElementById("startButton");
+let treeArray = [];
+let treeBuild = tree.character;
 
+function treeObject(){
+	let tree = Object.create(null); 
+	tree.character = document.getElementById("Char").value;
+	tree.height = document.getElementById("heightChar").value;
+	
+	// console.log("Did this work, function", tree);
+	return tree;
+};
 
-buttonStart.addEventListener("click", function(){
-	let character = document.getElementById("numChar").value;
-	let height = document.getElementById("heightChar").value;
-	let treeArray = [];
-	let treeBuild = character;
-
-		for(let i = height; i > 0; i--){
+function treeSpaces(height){
+	for(let i = height; i > 0; i--){
 		treeArray.push(" ");
-		
+
+		// console.log("treeSpaces", treeArray);
 		}
-		treeArray.push(character);
-		
-		for (let i =  height; i > 0; i--){
+};
+
+function buildTree(){
+	for (let i =  height; i > 0; i--){
 				console.log(treeArray.join("")); //make array string
 				treeArray.push(`${treeBuild}${treeBuild}`);
 				treeArray.shift();
-				
-				
-				
+
 		}
-});
+		//	console.log("buildTree", treeArray);
+};
+
+buttonStart.addEventListener("click", function(){
+		treeArray.push(character);
+
+		treeSpaces(tree.height);
+		buildTree();
+	
+		}
+);
+	
+
+		
+		
+		
+				
+				
+				
 
 
+//html text field that only accepts on character
+//Object passed into function 
+//Enter key event listener
+// single responsiblity
 
-
+// let character = document.getElementById("numChar").value;
+// let height = document.getElementById("heightChar").value;
 
 	// need breaks and a way to center characters in console.
 	// sampleArray.push(`character`);
