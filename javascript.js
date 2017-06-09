@@ -6,9 +6,11 @@
 // A key that specifies which character to use to build the pine tree.
 // The character to use should be from user input in a
 // <input type="text"> field in the DOM.
+const typeOfChar = document.getElementById("Char");
+const heightOfChar = document.getElementById("heightChar")
 const buttonStart = document.getElementById("startButton");
 let treeArray = [];
-let treeBuild = tree.character;
+
 
 function treeObject(){
 	let tree = Object.create(null); 
@@ -19,33 +21,61 @@ function treeObject(){
 	return tree;
 };
 
-function treeSpaces(height){
+function treeSpaces(height, character){//This didn't need the key because buttonListen which called it has it defined already
+	treeArray.push(`${character}`);
+	// console.log("before loop", treeArray);
 	for(let i = height; i > 0; i--){
-		treeArray.push(" ");
-
-		// console.log("treeSpaces", treeArray);
+		treeArray.unshift(" ");//Needed to be switched to unshift because it was putting spaced to the end of the array from
+		//in contrast from it's earlier position.
+		
+		// console.log("during loop", treeArray);
 		}
+		// console.log("after loop", treeArray);
 };
 
-function buildTree(){
-	for (let i =  height; i > 0; i--){
-				console.log(treeArray.join("")); //make array string
-				treeArray.push(`${treeBuild}${treeBuild}`);
-				treeArray.shift();
+function buildTree(treeObj){//need button's treeObj
+	
+	
+		for (let i =  treeObj.height; i > 0; i--){//needed to be the same as the parameter
+			
+			
+			console.log(treeArray.join("")); //make array string
+
+			treeArray.push(`${treeObj.character}${treeObj.character}`);
+			treeArray.shift();
 
 		}
 		//	console.log("buildTree", treeArray);
 };
 
-buttonStart.addEventListener("click", function(){
-		treeArray.push(character);
+function buttonListen(){//Needed to have a variable hold the treeObject() result
+		// console.log("ButtonClicked");
+		let treeObj = treeObject();
+		
+		treeSpaces(treeObj.height, treeObj.character);//This allowed us to use the keys inside //called here
+		
+		
+		buildTree(treeObj);
 
-		treeSpaces(tree.height);
-		buildTree();
-	
-		}
-);
-	
+		
+};
+
+typeOfChar.addEventListener("keypress", function(event){
+	// console.log("event", event);
+	let key = event.keycode;
+	if (key == 13){ //entered value might be a string?
+		buttonListen();
+	}
+});
+heightOfChar.addEventListener("keypress", function(event){
+	let key = event.keycode;
+	if (key == 13){
+		buttonListen();
+	}
+});
+buttonStart.addEventListener("click", buttonListen);//Needed to be a reference
+
+
 
 		
 		
@@ -79,7 +109,7 @@ buttonStart.addEventListener("click", function(){
 // break points. Might work with a for loop inside a for loop.
  // Making j counter dependant on i will maybe work if i is ticking down
  // from tree.heightChar.length
- // 6/ 8/ 17
+ // 6/ 7/ 17
 //Seems like I can make this much easier going off what we learned yesterday
 // a good night's sleep helps. A do while loop allows me to put one 
 //character in to start and then I concat it with character again while
@@ -90,6 +120,8 @@ buttonStart.addEventListener("click", function(){
 // based on height to dynamicly assign a value to spaces would help.
 // or I could replace spaces via index with a replace method. Or maybe
 // use an array to replace it's own spaces with the character. Array worked!
+// 6 / 8/ 17
+// Learned that keypresses can cause serious problems. Thanks Greg for helping!
 // 6 / 9/ 17
 
 //Previous code ideas
