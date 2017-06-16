@@ -12,77 +12,80 @@ const buttonStart = document.getElementById("startButton");
 let treeArray = [];
 
 
-function treeObject(){
-	let tree = Object.create(null); 
-	tree.character = document.getElementById("Char").value;
-	tree.height = document.getElementById("heightChar").value;
-	
-	// console.log("Did this work, function", tree);
-	return tree;
+function treeObject() {
+    let tree = Object.create(null);
+    tree.character = document.getElementById("Char").value;
+    tree.height = document.getElementById("heightChar").value;
+
+    // console.log("Did this work, function", tree);
+    return tree;
 };
 
-function treeSpaces(height, character){//This didn't need the key because buttonListen which called it has it defined already
-	treeArray.push(`${character}`);
-	// console.log("before loop", treeArray);
-	for(let i = height; i > 0; i--){
-		treeArray.unshift(" ");//Needed to be switched to unshift because it was putting spaced to the end of the array from
-		//in contrast from it's earlier position.
-		
-		// console.log("during loop", treeArray);
-		}
-		// console.log("after loop", treeArray);
+function treeSpaces(height, character) { //This didn't need the key because buttonListen which called it has it defined already
+    treeArray.push(`${character}`);
+    // console.log("before loop", treeArray);
+    for (let i = height; i > 0; i--) {
+        treeArray.unshift(" "); //Needed to be switched to unshift because it was putting spaced to the end of the array from
+        //in contrast from it's earlier position.
+
+        // console.log("during loop", treeArray);
+    }
+    // console.log("after loop", treeArray);
 };
 
-function buildTree(treeObj){//need button's treeObj
-	
-	
-		for (let i =  treeObj.height; i > 0; i--){//needed to be the same as the parameter
-			
-			
-			console.log(treeArray.join("")); //make array string
+function buildTree(treeObj) { //need button's treeObj
 
-			treeArray.push(`${treeObj.character}${treeObj.character}`);
-			treeArray.shift();
 
-		}
-		//	console.log("buildTree", treeArray);
+    for (let i = treeObj.height; i > 0; i--) { //needed to be the same as the parameter
+
+
+        console.log(treeArray.join("")); //make array string
+
+        treeArray.push(`${treeObj.character}${treeObj.character}`);
+        treeArray.shift();
+
+    }
+    //	console.log("buildTree", treeArray);
 };
 
-function buttonListen(){//Needed to have a variable hold the treeObject() result
-		// console.log("ButtonClicked");
-		let treeObj = treeObject();
-		
-		treeSpaces(treeObj.height, treeObj.character);//This allowed us to use the keys inside //called here
-		
-		
-		buildTree(treeObj);
+function buttonListen() { //Needed to have a variable hold the treeObject() result
+    // console.log("ButtonClicked");
+    let treeObj = treeObject();
 
-		
+    treeSpaces(treeObj.height, treeObj.character); //This allowed us to use the keys inside //called here
+
+
+    buildTree(treeObj);
+
+
 };
 
-typeOfChar.addEventListener("keypress", function(event){
+typeOfChar.addEventListener("keypress", function(event) {
+    // console.log("event", event);
+    let key1 = event.which;
+    console.log("key1", key1);
+    if (key1 == 13) { 
+        buttonListen();
+    }
+});
+heightOfChar.addEventListener("keypress", function(event) {
 	// console.log("event", event);
-	let key = event.keycode;
-	if (key == 13){ //entered value might be a string?
-		buttonListen();
-	}
+    let key2 = event.which;
+    console.log("key2", key2);
+    if (key2 == 13) {
+        buttonListen();
+    }
 });
-heightOfChar.addEventListener("keypress", function(event){
-	let key = event.keycode;
-	if (key == 13){
-		buttonListen();
-	}
-});
-buttonStart.addEventListener("click", buttonListen);//Needed to be a reference
+buttonStart.addEventListener("click", buttonListen); //Needed to be a reference
 
 
 
-		
-		
-		
-				
-				
-				
+
+
+
+
+
+
 
 
 //html text field that only accepts on character
@@ -93,23 +96,23 @@ buttonStart.addEventListener("click", buttonListen);//Needed to be a reference
 // let character = document.getElementById("numChar").value;
 // let height = document.getElementById("heightChar").value;
 
-	// need breaks and a way to center characters in console.
-	// sampleArray.push(`character`);
+// need breaks and a way to center characters in console.
+// sampleArray.push(`character`);
 // sampleArray.unshift();
 
 //Thoughts
 //**********************
 // need to get height character to take element from type character
- // and create breaks or other inbetween each set of branches
- // need another function? put in buttonSubmit? Probably do a modulos
- // takes a remainder like the alphastacker and inserts breaks into the
- // Dom inbetween. Or the join function somehow. I don't think an array
- // is ideal for using join. I don't know if it works on objects.
- // loop through heightChar.length of height with progressively larger
+// and create breaks or other inbetween each set of branches
+// need another function? put in buttonSubmit? Probably do a modulos
+// takes a remainder like the alphastacker and inserts breaks into the
+// Dom inbetween. Or the join function somehow. I don't think an array
+// is ideal for using join. I don't know if it works on objects.
+// loop through heightChar.length of height with progressively larger
 // break points. Might work with a for loop inside a for loop.
- // Making j counter dependant on i will maybe work if i is ticking down
- // from tree.heightChar.length
- // 6/ 7/ 17
+// Making j counter dependant on i will maybe work if i is ticking down
+// from tree.heightChar.length
+// 6/ 7/ 17
 //Seems like I can make this much easier going off what we learned yesterday
 // a good night's sleep helps. A do while loop allows me to put one 
 //character in to start and then I concat it with character again while
@@ -133,5 +136,5 @@ buttonStart.addEventListener("click", buttonListen);//Needed to be a reference
 // 	let treeArray = [character, height];
 // 	return treeArray; //Has to be array or object
 // });
-	// const buttonSubmit = document.getElementById("submitChar");
-	// console.log(`${character}`);
+// const buttonSubmit = document.getElementById("submitChar");
+// console.log(`${character}`);
